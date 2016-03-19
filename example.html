@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=width-device,initial-scale=1"/>
+    <script src="SherryPage1.2.min.js"></script>
+    <style>
+        /*必写样式*/
+        body{
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+        }
+    </style>
+    <style>
+        /*可选样式*/
+        .green{
+            background: #deff88;
+        }
+        .blue{
+            background: #83d4ff;
+        }
+        .red{
+            background: #ffbf9d;
+        }
+        .purple{
+            background: #f3ccff;
+        }
+        #btn{
+            position: fixed;
+            top: 20px;
+            left: 100px;
+        }
+        .btn{
+            float: left;
+            margin-left: 10px;
+            border: 1px solid #000000;
+        }
+    </style>
+</head>
+<body>
+<!--此处为框架html部分-->
+<!--full类名必须给 每个full是一个屏幕-->
+<div class="red full">111</div>
+<div class="blue full">222</div>
+<div class="green full">333</div>
+<div class="purple full">4444</div>
+
+
+
+<!--此处非框架必写部分-->
+<div id="btn">
+    <button class="btn">第一页</button>
+    <button class="btn">第二页</button>
+    <button class="btn">第三页</button>
+    <button class="btn">第四页</button>
+</div>
+
+
+
+</body>
+<script>
+    var test=SherryPage(demo);
+    function demo(){
+        var num= test.num();
+        alert('哈哈 你触发了第'+num+'个屏幕的动作结束回调函数')
+    }
+
+    alert('如果想测试移动端滑屏事件 请引入zepto框架');
+
+
+    var btn=document.getElementsByClassName('btn');
+    btn[0].onclick=function(){
+        test.go(0,demo2)
+    };
+    btn[1].onclick=function(){
+        test.go(1,demo2)
+    };
+    btn[2].onclick=function(){
+        test.go(2,demo2)
+    };
+    btn[3].onclick=function(){
+        test.go(3,demo2)
+    };
+    function demo2(){
+        alert('你触发了通过按钮操作的滑屏回调函数')
+    }
+
+
+</script>
+</html>
