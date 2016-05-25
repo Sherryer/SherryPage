@@ -1,4 +1,5 @@
 function SherryPage(nomal){
+    //写try catch 因为没有引入zepot Zepto会报错不友好
     try{
         if(Zepto){
             $(document).on('swipeUp',function(){slide(0)}).on('swipeDown',function(){slide(1)})
@@ -6,9 +7,11 @@ function SherryPage(nomal){
 
     }catch (e){}
 
+    //重写getElementsByClassName
     function gc(a){
         return document.getElementsByClassName(a)
     }
+
 
     window.addEventListener("touchmove",function(e){
         e.preventDefault();  //不能滑屏
@@ -21,9 +24,12 @@ function SherryPage(nomal){
     var x=false;
     var y=true;
     var wh=window.innerHeight;
+
+
 try{
     var footer=gc('side')[0];
 }catch (e){}
+
     if(footer){
         z=true;
         var bt=Math.ceil(wh/4);
@@ -62,11 +68,12 @@ try{
 
 
     var checkNumber;
+
+   //  每次执行checkNum 实际是为了更新checkNumber 的值 或者获取当前是第几页
     function checkNum(){
-        //var sc=document.body.scrollTop||document.documentElement.scrollTop;
         var sc=Math.abs(worm.offsetTop);
         checkNumber=sc/wh;
-           console.log(sc,checkNumber);
+           //console.log(sc,checkNumber);
         return checkNumber+1
     }
 
@@ -91,8 +98,8 @@ try{
        if(flag3){
            flag3=false;
            var flagCheck=false;
-           if(t==1000||t==-1000){
-               if(t==1000){
+           if(t=='up'||t=='down'){
+               if(t=='up'){
 //            往下滑
                    var target=(checkNumber+1)*wh;
 
@@ -111,8 +118,8 @@ try{
                    flagCheck=true
            }
 
-//        var target=window.innerHeight;
-//
+
+
            if(flagCheck){
                of();
                clearInterval(timer);
@@ -123,14 +130,18 @@ try{
                    speed>0?speed=Math.ceil(speed):speed=Math.floor(speed);
                    if(sTop==target){
                        clearInterval(timer);
-                       checkNum();
+
                        onn();
-                       if(fn2){
-                           fn2()
+                       if(Math.ceil(checkNumber)!=t){
+                           if(fn2){
+                               fn2()
+                           }
+                           if(nomal){
+                               nomal()
+                           }
                        }
-                       if(nomal){
-                           nomal()
-                       }
+
+                       checkNum();
                        flag3=true;
                    }else{
                        worm.style.top=-(Math.abs(worm.offsetTop)+speed)+'px';
@@ -142,7 +153,7 @@ try{
        }
     }
 
-
+//把滑轮滚动事件 兼容了一下 封装在了这个函数里
     function scrollFunc(e) {
         e = e || window.event;
         if (e.wheelDelta) {  //判断浏览器IE，谷歌滑轮事件
@@ -178,7 +189,6 @@ try{
         document.onmousewheel = null;   //ie 谷歌
     }
 
-    //引入对Zepto支持
 
 
 
@@ -195,7 +205,7 @@ try{
                 go(n-1);
 
             }else if(checkNumber){
-                go(-1000)
+                go('down')
             }
             y=true;
         }else{
@@ -203,9 +213,10 @@ try{
             if(checkNumber<n-1){
                 //alert(c);
                 //alert(n);
-                go(1000);
+                go('up');
 
             }else if(z&&checkNumber==n-1&&y){
+                //y是一个标志 判断当前是否是最后一瓶 如果是最后一屏 就划不动了 只有当屏幕往上滑动的时候把标志变为真
                 y=false;
                 go(bt)
             }

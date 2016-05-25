@@ -1,0 +1,25 @@
+简介：本框架为全平台响应式框架
+1. css样式 必须有这些 body{padding:0;margin:0;}
+2  html 必须写成如下模式 每个类名为full的div从上到下依次代表一屏 最后一个side类名的div代表一个非全屏滚动页
+<div class="box">
+   <div class="worm">
+       <div class="full">111</div>
+       <div class="full">222</div>
+       <div class="full">333</div>
+       <div class="full">4444</div>
+        ...
+       <div class="side">555</div>
+   </div>
+</div>
+
+3. 引入SherryPage.js文件 调用函数 SherryPage(commonEvent) 使用用本框架
+4. 框架详解：
+           1>SherryPage(commonEvent) 的参数commonEvent 传入一个通用回调函数:即每次切换屏幕后都会被调用
+           2>var json=SherryPage()   json 为SherryPage()返回出的一个函数    格式为 {"go":函数1,"num":函数2;}
+
+               json.go(n):滑动到第n页 n从0开始 （如果参数大小超过页数 或者其他不合法行为 则不会跳转）
+                         例如
+                         json.go(2); 滑动到第三屏
+                         json.go(0;  滑动到第一页
+               json.num：调用后返回一个数字n（当前是第几屏） 从1开始 用于动态读取屏幕滚动信息 并添加相应回调
+

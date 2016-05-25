@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
     <script src="zepto.min.js"></script>
     <script src="zeptoTouch.js"></script>
-    <script src="SherryPage1.5.1.min.js"></script>
+    <script src="SherryPage1.5.3.learn.js"></script>
     <style>
         /*必写样式*/
         body{
@@ -70,21 +70,16 @@
         alert('哈哈 你触发了第'+num+'个屏幕的动作结束回调函数')
     }
 
+
 //    移动端请用tap 因为click会有200-300ms延迟
 
     var btn=document.getElementsByClassName('btn');
-    btn[0].onclick=function(){
-        test.go(0,demo2)
-    };
-    btn[1].onclick=function(){
-        test.go(1,demo2)
-    };
-    btn[2].onclick=function(){
-        test.go(2,demo2)
-    };
-    btn[3].onclick=function(){
-        test.go(3,demo2)
-    };
+    for(var i= 0,length=btn.length;i<length;i++){
+        btn[i].onclick=(function (i){
+            return function (){test.go(i,demo2)}
+        })(i)
+    }
+
     function demo2(){
         alert('你触发了通过按钮操作的滑屏回调函数')
     }
