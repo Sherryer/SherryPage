@@ -67,8 +67,7 @@
     var test=SherryPage(demo);
     function demo(){
         var num=Math.ceil(test.num()) ;
-
-       // alert('哈哈 你触发了第'+num+'个屏幕的动作结束回调函数')
+        alert('哈哈 你触发了第'+num+'个屏幕的动作结束回调函数')
     }
 
 //    移动端请用tap 因为click会有200-300ms延迟
@@ -87,7 +86,7 @@
         test.go(3,demo2)
     };
     function demo2(){
-      //  alert('你触发了通过按钮操作的滑屏回调函数')
+        alert('你触发了通过按钮操作的滑屏回调函数')
     }
 </script>
 </html>
